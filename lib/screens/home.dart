@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../constrains/color.dart';
-import './todoTable.dart';
+import 'todo_table.dart';
+import '../model/todo.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+  final todoList = ToDo.todoList();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,38 +25,43 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 15,
-        ),
-        child: Column(
-          children: [
-            searchBox(),
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(
-                      top: 20,
-                      bottom: 20,
-                    ),
-                    child: const Text(
-                      'All Todos',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  TodoTable(),
-                  TodoTable(),
-                  TodoTable(),
-                ],
-              ),
+      body: Stack(
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 15,
             ),
-          ],
-        ),
+            child: Column(
+              children: [
+                searchBox(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          top: 20,
+                          bottom: 20,
+                        ),
+                        child: const Text(
+                          'All Todos',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      for (ToDo todo in todoList) TodoTable(todo: todo),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Align(
+            alignment: Alignment.bottomCenter,
+          ),
+        ],
       ),
     );
   }
@@ -78,6 +86,7 @@ Widget searchBox() {
                 color: tdBlack,
                 size: 20,
               ),
+              prefixIconColor: Color.fromARGB(255, 246, 243, 243),
               prefixIconConstraints: BoxConstraints(
                 maxHeight: 20,
               ),

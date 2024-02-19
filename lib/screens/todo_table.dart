@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:newtodo/constrains/color.dart';
+import '../model/todo.dart';
 
 class TodoTable extends StatelessWidget {
-  const TodoTable({super.key});
+  const TodoTable({super.key, required this.todo});
+  final ToDo todo;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,16 +15,16 @@ class TodoTable extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         tileColor: Colors.white,
-        leading: const Icon(
-          Icons.check_box,
+        leading: Icon(
+          todo.isDone ? Icons.check_box : Icons.check_box_outline_blank,
           color: tdBlue,
         ),
-        title: const Text(
-          'Todos Title',
+        title: Text(
+          todo.todoText,
           style: TextStyle(
             fontSize: 16,
             color: tdBlack,
-            decoration: TextDecoration.lineThrough,
+            decoration: todo.isDone ? TextDecoration.lineThrough : null,
           ),
         ),
         trailing: Container(
