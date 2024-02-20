@@ -5,3 +5,4 @@ const Color tdBlue = Color(0xFF5F52EE);
 const Color tdBlack = Color(0xFF3A3A3A);
 const Color tdGrey = Color(0xFF717171);
 const Color tdBGCOlor = Color(0xFFEEEFF5);
+const Color tdBlueHover = Color.fromARGB(255, 55, 40, 228);

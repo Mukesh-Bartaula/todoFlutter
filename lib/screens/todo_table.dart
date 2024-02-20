@@ -3,14 +3,23 @@ import 'package:newtodo/constrains/color.dart';
 import '../model/todo.dart';
 
 class TodoTable extends StatelessWidget {
-  const TodoTable({super.key, required this.todo});
+  const TodoTable(
+      {Key? key,
+      required this.todo,
+      required this.onTodoChange,
+      required this.onDeleteItem})
+      : super(key: key);
   final ToDo todo;
+  final onTodoChange;
+  final onDeleteItem;
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 15),
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          onTodoChange(todo);
+        },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -39,7 +48,9 @@ class TodoTable extends StatelessWidget {
             color: tdBGCOlor,
             iconSize: 18,
             icon: const Icon(Icons.delete),
-            onPressed: () {},
+            onPressed: () {
+              onDeleteItem(todo.id);
+            },
           ),
         ),
       ),
